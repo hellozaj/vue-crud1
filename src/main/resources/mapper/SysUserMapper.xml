@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.dao.SysUserDao">
+    <resultMap id="BaseResult" type="com.qf.domain.TbSysUser">
+        <id column="userid" property="userid"></id>
+        <result column="login_name" property="loginName"></result>
+        <result column="password" property="password"></result>
+        <result column="create_time" property="createTime"></result>
+        <result column="realname" property="realname"></result>
+        <result column="state" property="state"></result>
+    </resultMap>
+
+    <select id="findByUserName" parameterType="string" resultMap="BaseResult">
+            select * from tb_sys_user where login_name =#{username}
+        </select>
+
+    <insert id="add" parameterType="com.qf.domain.TbSysUser">
+        INSERT INTO tb_sys_user
+        <trim prefix="(" suffixOverrides="," suffix=")">
+
+            <if test="login_name!=null">
+                login_name,
+            </if>
+            <if test="password!=null">
+                password,
+            </if>
+            <if test="create_time!=null">
+                create_time,
+            </if>
+            <if test="realname!=null">
+                realname,
+            </if>
+            <if test="state!=null">
+                state,
+            </if>
+        </trim>
+        <trim prefix="values(" suffixOverrides="," prefixOverrides=")">
+            <if test="login_name!=null">
+                #{login_name},
+            </if>
+            <if test="password!=null">
+                #{password},
+            </if>
+            <if test="create_time!=null">
+                #{create_time},
+            </if>
+            <if test="realname!=null">
+                #{realname},
+            </if>
+            <if test="state!=null">
+                #{state},
+            </if>
+        </trim>
+    </insert>
+</mapper>
